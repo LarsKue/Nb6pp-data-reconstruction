@@ -1,4 +1,5 @@
       subroutine read_bindat
+*       this subroutine reads all data that bindat.f normally writes
 
       include 'common6.h'
 
@@ -25,8 +26,7 @@
       read(9,*)
 
 
-
-
+*       print some of the variables to validate they were read correctly
       write(*,*) 'NPAIRS: ', NPAIRS
       write(*,*) 'MODEL:  ', MODEL
       write(*,*) 'NRUN:   ', NRUN
