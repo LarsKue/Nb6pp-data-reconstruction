@@ -33,15 +33,16 @@
       open(unit=unit, status='old', form='formatted', file=adjustl(format_filename(unit, data_path, stem, time)))
       end subroutine open_file
 
-      subroutine open_files(data_path, stems, units, time)
+      subroutine open_files(n_files, data_path, stems, units, time)
       implicit none
+      integer n_files
       character(len=*) data_path
-      character*10 stems(:)
-      integer units(:)
+      character(len=*) stems(*)
+      integer units(*)
       integer time
       integer i
 
-      do i = 1, size(stems)
+      do i = 1, n_files
 
         call open_file(data_path, units(i), stems(i), time)
 

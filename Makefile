@@ -12,7 +12,10 @@ outdir = build
 idir = include
 
 # source files
-sources = $(wildcard *.f)
+sources = $(wildcard *.[fF])
+
+# extra source files
+extra_sources = $(wildcard extra_src/*.[fF])
 
 program = main
 
@@ -20,8 +23,9 @@ program = main
 .DEFAULT_GOAL := all
 
 all:
+	echo $(extra_sources)
 	mkdir -p $(outdir)
-	$(compiler) $(fcflags) -I $(idir) -o $(outdir)/$(program) $(sources)
+	$(compiler) $(fcflags) -I $(idir) -o $(outdir)/$(program) $(sources) $(extra_sources)
 
 run:
 	make all && $(outdir)/$(program)
