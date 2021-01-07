@@ -26,6 +26,65 @@
       read(9,*)
 
 
+
+
+C       do JPAIR = 1, NPAIRS
+      do JPAIR = 1, 1
+
+*       Missing variables
+        write(*,*) 'ZMBAR:        ', ZMBAR
+        write(*,*) 'SEMI:         ', SEMI
+        write(*,*) 'RAU:          ', RAU
+        write(*,*) 'RI:           ', RI
+        write(*,*) 'RBAR:         ', RBAR
+        write(*,*) 'VI:           ', VI
+        write(*,*) 'VSTAR:        ', VSTAR
+        write(*,*) 'H(JPAIR):     ', H(JPAIR)
+
+
+        write(*,*) 'reading pair ', JPAIR
+        J1 = 2*JPAIR - 1
+        J2 = 2*JPAIR
+        read(9,*)  NAME(J1), NAME(J2), BODY(J1),
+     &         BODY(J2), EB(JPAIR), ECC(JPAIR), PB(JPAIR), 
+     &         SEMIXRAU, RIXRBAR, VIXVSTAR, KSTAR(J1), KSTAR(J2),
+     &         ZN, RP, STEP(J1), NAME(N+JPAIR), ECM(JPAIR), KCM
+
+        BODY(J1) = BODY(J1) / ZMBAR
+        BODY(J2) = BODY(J2) / ZMBAR
+        SEMI = -0.5*(BODY(J1) + BODY(J2))/H(JPAIR)
+        RAU = SEMIXRAU / SEMI
+
+
+        write(*,*) 'NAME(J1):       ', NAME(J1)
+        write(*,*) 'NAME(J2):       ', NAME(J2)
+        write(*,*) 'BODY(J1):       ', BODY(J1)
+        write(*,*) 'BODY(J2):       ', BODY(J2)
+        write(*,*) 'EB(JPAIR):      ', EB(JPAIR)
+        write(*,*) 'ECC(JPAIR):     ', ECC(JPAIR)
+        write(*,*) 'PB(JPAIR):      ', PB(JPAIR)
+        write(*,*) 'SEMI*RAU:       ', SEMIXRAU
+        write(*,*) 'SEMI:           ', SEMI
+        write(*,*) 'RAU:            ', RAU
+        write(*,*) 'RI*RBAR:        ', RIXRBAR
+        write(*,*) 'RI:             ', RI
+        write(*,*) 'RBAR:           ', RBAR
+        write(*,*) 'VI*VSTAR:       ', VIXVSTAR
+        write(*,*) 'VI:             ', VI
+        write(*,*) 'VSTAR:          ', VSTAR
+        write(*,*) 'KSTAR(J1):      ', KSTAR(J1)
+        write(*,*) 'KSTAR(J2):      ', KSTAR(J2)
+        write(*,*) 'ZN:             ', ZN
+        write(*,*) 'RP:             ', RP
+        write(*,*) 'STEP(J1):       ', STEP(J1)
+        write(*,*) 'NAME(N+JPAIR):  ', NAME(N+JPAIR)
+        write(*,*) 'ECM(JPAIR):     ', ECM(JPAIR)
+        write(*,*) 'KCM:            ', KCM
+
+
+      end do
+
+
 *       print some of the variables to validate they were read correctly
       write(*,*) 'NPAIRS: ', NPAIRS
       write(*,*) 'MODEL:  ', MODEL

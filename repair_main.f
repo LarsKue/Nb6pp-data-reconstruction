@@ -27,7 +27,7 @@ C       data_path = '/media/lars/98eaa56-aba0-4d2a-9b98-32a240f0cea3/data/2020-1
       call zero()
 
 *           Rainer:
-*           mass = body?
+*           mass = body
 *           body_zero = body_mass
 *           epoch = 0
 
