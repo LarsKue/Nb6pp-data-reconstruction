@@ -50,6 +50,8 @@ C       do JPAIR = 1, NPAIRS
      &         SEMIXRAU, RIXRBAR, VIXVSTAR, KSTAR(J1), KSTAR(J2),
      &         ZN, RP, STEP(J1), NAME(N+JPAIR), ECM(JPAIR), KCM
 
+
+*       reconstruction? needs consult
         BODY(J1) = BODY(J1) / ZMBAR
         BODY(J2) = BODY(J2) / ZMBAR
         SEMI = -0.5*(BODY(J1) + BODY(J2))/H(JPAIR)
