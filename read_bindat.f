@@ -39,6 +39,8 @@
      &      ((XS(K,J),K=1,3),J=1,NTOT), ((VS(K,J),K=1,3),J=1,NTOT),
      &      (PHI(J),J=1,NTOT), (NAME(J),J=1,NTOT)
 
+
+
 *       Are these the same as used in bdat? the manual suggests they are
 *       but this may need explicit code confirmation
         RBAR = AS_OUTPUT(3)
@@ -47,6 +49,7 @@
 
 
         write(*,*) 'AS_OUTPUT:', AS_OUTPUT
+        write(*,*) 'RBAR:', RBAR
 
 
 
