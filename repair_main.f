@@ -24,6 +24,12 @@ C       data_path = '/media/lars/98eaa56-aba0-4d2a-9b98-32a240f0cea3/data/2020-1
       forms(1)  = .false.
 
 
+*           required:
+*           metallicity = 0.00051
+*           mass, metallicity, age, stellar type
+*           age = time - epoch = time
+
+
       files(2)  = 'bdat      '
       units(2)  = 9
       forms(2)  = .true.
@@ -36,7 +42,8 @@ C       data_path = '/media/lars/98eaa56-aba0-4d2a-9b98-32a240f0cea3/data/2020-1
       units(4)  = 84
       forms(4)  = .true.
 
-*       initialize variables
+
+*       initialize variables and some constants
       call zero()
 
 *           Rainer:
@@ -48,7 +55,13 @@ C       data_path = '/media/lars/98eaa56-aba0-4d2a-9b98-32a240f0cea3/data/2020-1
       call open_files(size(files), data_path, files, units, forms, t_read)
 
 *       read in variable values from those files
-      call read_bindat()
+      call read_files()
+
+*       create some constants that are required to reconstruct the data
+      call repair_units()
+
+*       reconstruct variables that cannot be directly read from files
+      call reconstruct()
 
 *       reconstruct the data here, e.g. by calling hrplot.f
 C       call HRPLOT()
