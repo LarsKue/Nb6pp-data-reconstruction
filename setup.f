@@ -17,7 +17,6 @@ C       DATAPATH = '/media/lars/98eaa56-aba0-4d2a-9b98-32a240f0cea3/data/2020-12
 
 
 *           required:
-*
 *           metallicity = 0.00051
 *           mass, metallicity, age, stellar type
 *           age = time - epoch = time
