@@ -3,13 +3,15 @@
 *       bindat.f and some others in order to allow reconstruction
 *       of original variables and finally calling hrplot.F
 
-      include 'common6.h'
+      include 'common_repair.h'
 
 *       Variables from bindat.f
       COMMON/POTDEN/  RHO(NMAX),XNDBL(NMAX),PHIDBL(NMAX)
       COMMON/BINARY/  CM(4,MMAX),XREL(3,MMAX),VREL(3,MMAX),
      &                HM(MMAX),UM(4,MMAX),UMDOT(4,MMAX),TMDIS(MMAX),
      &                NAMEM(MMAX),NAMEG(MMAX),KSTARM(MMAX),IFLAG(MMAX)
+
+*       Variables from bindat.f
       REAL*8  EB(KMAX),ECC(KMAX),RCM(KMAX),ECM(KMAX),PB(KMAX),AS(30)
       REAL*8  XX(3,3),VV(3,3)
       CHARACTER*27 OUTFILE
@@ -21,9 +23,6 @@
       REAL*4  XNS(NMAX),PHI(NMAX)
 
 *       Local Variables
-
-        include 'common_repair.h'
-
 
       write(*,*) 'NMAX =', NMAX
 

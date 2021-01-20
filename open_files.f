@@ -41,31 +41,22 @@
       open(unit=unit, status='old', form=form, file=adjustl(format_filename(unit, data_path, stem, time)))
       end subroutine open_file
 
-      subroutine open_files(n_files, data_path, stems, units, forms, time)
-      implicit none
+      subroutine open_files()
 
-*       arguments
-      integer n_files
-      character(len=*) data_path
-      character(len=*) stems(*)
-      integer units(*)
-      logical forms(*)
+      include 'common_repair.h'
 
-*       internal variables
       character(len=11) form
-      integer time
       integer i
 
+      do i = 1, NFILES
 
-      do i = 1, n_files
-
-        if (forms(i)) then
+        if (FORMS(i)) then
             form = 'formatted  '
         else
             form = 'unformatted'
         end if
 
-        call open_file(data_path, units(i), stems(i), trim(form), time)
+        call open_file(DATAPATH, UNITS(i), STEMS(i), trim(form), TREAD)
 
       end do
 

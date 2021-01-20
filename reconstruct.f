@@ -2,8 +2,9 @@
 *       this subroutine reconstructs variables
 *       that cannot be directly read from files
 
-        include 'common6.h'
         include 'common_repair.h'
+
+      TTOT = TREAD
 
       RI = RIXRBAR / RBAR
       VI = VIXVSTAR / VSTAR
@@ -37,6 +38,17 @@ C       do JPAIR = 1, 5
         write(*,*) '==================================================='
 
       end do
+
+
+*       TODO:
+*           - TTOT, TPHYS, TCHAR, Time in general
+*           - BODY0?
+*           - IFIRST?
+*           - NAMEG
+*           - NCH
+*           - CM
+*           - 
+
 
 
       
