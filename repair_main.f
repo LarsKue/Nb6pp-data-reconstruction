@@ -30,8 +30,8 @@
 *       reconstruct variables that cannot be directly read from files
       call reconstruct()
 
-*       reconstruct the data here, e.g. by calling hrplot.f
-      call HRPLOT()
+*       reconstruct the data files
+      call repair_hrplot()
 
 *       close all files
       do i = 1, size(units)

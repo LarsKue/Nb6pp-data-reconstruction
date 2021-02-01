@@ -12,7 +12,7 @@
      &                NAMEM(MMAX),NAMEG(MMAX),KSTARM(MMAX),IFLAG(MMAX)
 
 *       Variables from bindat.f
-      REAL*8  EB(KMAX),ECC(KMAX),RCM(KMAX),ECM(KMAX),PB(KMAX),AS(30)
+      REAL*8  EB(KMAX),RCM(KMAX),ECM(KMAX),PB(KMAX),AS(30)
       REAL*8  XX(3,3),VV(3,3)
       CHARACTER*27 OUTFILE
       CHARACTER*29 OUTFILE2
@@ -86,8 +86,8 @@ C       do JPAIR = 1, 5
         J2 = 2*JPAIR
 
         read(9,*)  NAME(J1), NAME(J2), BODYXZMBAR(J1),
-     &         BODYXZMBAR(J2), EB(JPAIR), ECC(JPAIR), PB(JPAIR), 
-     &         SEMIXRAU, RIXRBAR, VIXVSTAR, KSTAR(J1), KSTAR(J2),
+     &         BODYXZMBAR(J2), EB(JPAIR), ECCS(JPAIR), PB(JPAIR), 
+     &         SEMIS(JPAIR), RIS(JPAIR), VIS(JPAIR), KSTAR(J1), KSTAR(J2),
      &         ZN, RP, STEP(J1), NAME(N+JPAIR), ECM(JPAIR), KCM
 
 
@@ -98,11 +98,11 @@ C       do JPAIR = 1, 5
         write(*,*) 'BODYXZMBAR(J1): ', BODYXZMBAR(J1)
         write(*,*) 'BODYXZMBAR(J2): ', BODYXZMBAR(J2)
         write(*,*) 'EB(JPAIR):      ', EB(JPAIR)
-        write(*,*) 'ECC(JPAIR):     ', ECC(JPAIR)
+        write(*,*) 'ECC(JPAIR):     ', ECCS(JPAIR)
         write(*,*) 'PB(JPAIR):      ', PB(JPAIR)
-        write(*,*) 'SEMI*RAU:       ', SEMIXRAU
-        write(*,*) 'RI*RBAR:        ', RIXRBAR
-        write(*,*) 'VI*VSTAR:       ', VIXVSTAR
+        write(*,*) 'SEMI*RAU:       ', SEMIS(JPAIR)
+        write(*,*) 'RI*RBAR:        ', RIS(JPAIR)
+        write(*,*) 'VI*VSTAR:       ', VIS(JPAIR)
         write(*,*) 'KSTAR(J1):      ', KSTAR(J1)
         write(*,*) 'KSTAR(J2):      ', KSTAR(J2)
         write(*,*) 'ZN:             ', ZN

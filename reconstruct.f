@@ -6,17 +6,6 @@
 
       TTOT = TREAD
 
-      RI = RIXRBAR / RBAR
-      VI = VIXVSTAR / VSTAR
-      SEMI = SEMIXRAU / RAU
-
-*       Verify
-        write(*,*) 'Verify:'
-        write(*,*) 'RI:      ', RI
-        write(*,*) 'VI:      ', VI
-        write(*,*) 'SEMI:    ', SEMI
-        write(*,*) '==================================================='
-
       do JPAIR = 1, NPAIRS
 C       do JPAIR = 1, 5
 
@@ -28,7 +17,15 @@ C       do JPAIR = 1, 5
         BODY(J1) = BODYXZMBAR(J1) / ZMBAR
         BODY(J2) = BODYXZMBAR(J2) / ZMBAR
 
-        H(JPAIR) = -0.5 * (BODY(J1) + BODY(J2)) / SEMI
+        RIS(JPAIR) = RIS(JPAIR) / RBAR
+        VIS(JPAIR) = VIS(JPAIR) / VSTAR
+        SEMIS(JPAIR) = SEMIS(JPAIR) / RAU
+
+        H(JPAIR) = -0.5 * (BODY(J1) + BODY(J2)) / SEMIS(JPAIR)
+
+        
+*       TODO:
+C       RM = SEMI*(1.0 - E0)/MAX(RADIUS(J1),RADIUS(J),1.0D-20)
 
 *       Verify
         write(*,*) 'Verify:  '
