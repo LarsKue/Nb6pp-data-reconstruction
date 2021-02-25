@@ -1,4 +1,4 @@
-      character*100 function format_filename(unit, data_path, stem, time)
+      character*500 function format_filename(unit, data_path, stem, time)
       implicit none
 
 *       arguments

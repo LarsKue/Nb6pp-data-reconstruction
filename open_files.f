@@ -1,11 +1,4 @@
       
-      character*10 function int_to_str(i)
-      implicit none
-      integer i
-*       32-bit integers can at most have 10 digits
-      write(int_to_str, "(I10)") i
-      end function int_to_str
-
       subroutine open_file(data_path, unit, stem, form, time)
       implicit none
 
@@ -17,9 +10,9 @@
       integer time
 
 *       internal variables
-      character*100 format_filename
+      character*500 format_filename
 
-      open(unit=unit, status='old', form=form, file=adjustl(format_filename(unit, data_path, stem, time)))
+      open(unit=unit, status='unknown', form=form, file=adjustl(format_filename(unit, data_path, stem, time)))
       end subroutine open_file
 
       subroutine open_files()
@@ -37,7 +30,11 @@
             form = 'unformatted'
         end if
 
-        call open_file(DATAPATH, UNITS(i), STEMS(i), trim(form), TREAD)
+        if (INPUT(i)) then
+            call open_file(INPUTPATH, UNITS(i), STEMS(i), trim(form), TREAD)
+        else
+            call open_file(OUTPUTPATH, UNITS(i), STEMS(i), trim(form), TREAD)
+        end if
 
       end do
 

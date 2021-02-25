@@ -1,7 +1,7 @@
       subroutine read_files
 *       this subroutine reads data that is normally written by
 *       bindat.f and some others in order to allow reconstruction
-*       of original variables and finally calling hrplot.F
+*       of original variables
 
       include 'common_repair.h'
 
@@ -12,11 +12,10 @@
      &                NAMEM(MMAX),NAMEG(MMAX),KSTARM(MMAX),IFLAG(MMAX)
 
 *       Variables from bindat.f
-      REAL*8  EB(KMAX),RCM(KMAX),ECM(KMAX),PB(KMAX),AS(30)
+      REAL*8  EB(KMAX),RCM(KMAX),ECM(KMAX),AS(30)
       REAL*8  XX(3,3),VV(3,3)
       CHARACTER*27 OUTFILE
       CHARACTER*29 OUTFILE2
-      CHARACTER*20 TCHAR
 
 *       Variables from output.F
       REAL*4  XS(3,NMAX),VS(3,NMAX),BODYS(NMAX),RHOS(NMAX),AS_OUTPUT(20)
@@ -24,15 +23,13 @@
 
 *       Local Variables
 
-      write(*,*) 'NMAX =', NMAX
+      integer read_state
 
 
 *       data from conf.3 is needed to reconstruct data from bdat.9
 
 *       Header-1
         read(3)  NTOT, MODEL, NRUN, NK
-
-        write(*,*) 'NTOT =', NTOT
 
 *       Header-2, N-Label
 *       the AS in output.F is not the same as in bindat.f
@@ -49,24 +46,25 @@
         ZMBAR = AS_OUTPUT(4)
         VSTAR = AS_OUTPUT(12)
 
-        write(*,*) 'Verify:'
-        write(*,*) 'RBAR:  ', RBAR
-        write(*,*) 'ZMBAR: ', ZMBAR
-        write(*,*) 'VSTAR: ', VSTAR
-        write(*,*) '==================================================='
-
 
 *       Header-1
-      read(9, 30) NPAIRS, MODEL, NRUN, N, NC, NMERGE, (AS(K),K=1,7)
- 30   format(3I4,I6,2I4,2X,F7.1,2F7.2,F7.3,F8.1,2F9.4)
+C       read(9, 30, iostat=read_state) NPAIRS, MODEL, NRUN, N, NC, NMERGE, (AS(K),K=1,7)
+C  30   format(3I4,I6,2I4,2X,F7.1,2F7.2,F7.3,F8.1,2F9.4)
 
-*       Header-2
-      read(9,35)  (AS(K),K=8,17)
- 35   format(10F11.6)
+      read(9, 30) NPAIRS, N
+ 30   format(I4,8X,I6)
 
-*       Header-3
-      read(9,40)  (AS(K),K=18,30)
- 40   format(13F10.5)
+*       Header-2 can be skipped
+      read(9,*)
+
+C       read(9,35)  (AS(K),K=8,17)
+C  35   format(10F11.6)
+
+*       Header-3 can be skipped
+      read(9,*)
+
+C       read(9,40)  (AS(K),K=18,30)
+C  40   format(13F10.5)
 
 *       skip the next line as it is titles only
       read(9,*)
@@ -78,52 +76,34 @@
 *       STEP(I1)[NB], NAME(ICM), ECM[NB], K*(ICM)
 
       do JPAIR = 1, NPAIRS
-C       do JPAIR = 1, 5
 
-        write(*,*) 'reading pair ', JPAIR
+        if (mod(JPAIR, 500) .eq. 0) then
+          write(*,*) 'reading pair ', JPAIR
+        end if
 
         J1 = 2*JPAIR - 1
         J2 = 2*JPAIR
 
         read(9,*)  NAME(J1), NAME(J2), BODYXZMBAR(J1),
-     &         BODYXZMBAR(J2), EB(JPAIR), ECCS(JPAIR), PB(JPAIR), 
+     &         BODYXZMBAR(J2), EB(JPAIR), ECCS(JPAIR), PBS(JPAIR), 
      &         SEMIS(JPAIR), RIS(JPAIR), VIS(JPAIR), KSTAR(J1), KSTAR(J2),
-     &         ZN, RP, STEP(J1), NAME(N+JPAIR), ECM(JPAIR), KCM
+     &         ZN, RP, STEP(J1), NAME(N+JPAIR), ECM(JPAIR), KCMS(JPAIR)
 
 
-*       Verify
-        write(*,*) 'Verify:         '
-        write(*,*) 'NAME(J1):       ', NAME(J1)
-        write(*,*) 'NAME(J2):       ', NAME(J2)
-        write(*,*) 'BODYXZMBAR(J1): ', BODYXZMBAR(J1)
-        write(*,*) 'BODYXZMBAR(J2): ', BODYXZMBAR(J2)
-        write(*,*) 'EB(JPAIR):      ', EB(JPAIR)
-        write(*,*) 'ECC(JPAIR):     ', ECCS(JPAIR)
-        write(*,*) 'PB(JPAIR):      ', PB(JPAIR)
-        write(*,*) 'SEMI*RAU:       ', SEMIS(JPAIR)
-        write(*,*) 'RI*RBAR:        ', RIS(JPAIR)
-        write(*,*) 'VI*VSTAR:       ', VIS(JPAIR)
-        write(*,*) 'KSTAR(J1):      ', KSTAR(J1)
-        write(*,*) 'KSTAR(J2):      ', KSTAR(J2)
-        write(*,*) 'ZN:             ', ZN
-        write(*,*) 'RP:             ', RP
-        write(*,*) 'STEP(J1):       ', STEP(J1)
-        write(*,*) 'NAME(N+JPAIR):  ', NAME(N+JPAIR)
-        write(*,*) 'ECM(JPAIR):     ', ECM(JPAIR)
-        write(*,*) 'KCM:            ', KCM
-        write(*,*) '==================================================='
+        if (READEPOCH) then
+          read(99,*, IOSTAT=read_state) EPOCH(J1), EPOCH(J2)
+
+
+*         TODO: Check if this is necessary
+C           if (read_state .lt. 0) then
+C C             end of file reached
+C             EPOCH(J1) = 0.0
+C             EPOCH(J2) = 0.0
+C           end if
+
+        end if
 
 
       end do
-
-
-*       print some of the variables to validate they were read correctly
-      write(*,*) 'NPAIRS: ', NPAIRS
-      write(*,*) 'MODEL:  ', MODEL
-      write(*,*) 'NRUN:   ', NRUN
-      write(*,*) 'N:      ', N
-      write(*,*) 'NC:     ', NC
-      write(*,*) 'NMERGE: ', NMERGE
-      write(*,*) 'AS:     ', (AS(K),K=1,30)
 
       end subroutine read_files

@@ -7,9 +7,9 @@
       TTOT = TREAD
 
       do JPAIR = 1, NPAIRS
-C       do JPAIR = 1, 5
-
-        write(*,*) 'reconstructing pair ', JPAIR
+        if (mod(JPAIR, 500) .eq. 0) then
+          write(*,*) 'reconstructing pair ', JPAIR
+        end if
 
         J1 = 2*JPAIR - 1
         J2 = 2*JPAIR
@@ -23,31 +23,6 @@ C       do JPAIR = 1, 5
 
         H(JPAIR) = -0.5 * (BODY(J1) + BODY(J2)) / SEMIS(JPAIR)
 
-        
-*       TODO:
-C       RM = SEMI*(1.0 - E0)/MAX(RADIUS(J1),RADIUS(J),1.0D-20)
-
-*       Verify
-        write(*,*) 'Verify:  '
-        write(*,*) 'BODY(J1):', BODY(J1)
-        write(*,*) 'BODY(J2):', BODY(J2)
-        write(*,*) 'H(JPAIR):', H(JPAIR)
-        write(*,*) '==================================================='
-
       end do
-
-
-*       TODO:
-*           - TTOT, TPHYS, TCHAR, Time in general
-*           - BODY0?
-*           - IFIRST?
-*           - NAMEG
-*           - NCH
-*           - CM
-*           - 
-
-
-
       
-
       end subroutine reconstruct

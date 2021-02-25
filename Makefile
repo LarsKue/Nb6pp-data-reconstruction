@@ -5,11 +5,20 @@ fcflags = -Wall -ffixed-line-length-none
 # linker flags
 flflags = -g -fbacktrace
 
+# build directory
+builddir = build/
+
 # output directory
-outdir = build
+output = output/
+
+# input directory
+input = input/
 
 # include directory
-idir = include
+includedir = include/
+
+# default for readepoch is false
+readepoch = F
 
 # source files
 sources = $(wildcard *.[fF])
@@ -19,16 +28,18 @@ extra_sources = $(wildcard extra_src/*.[fF])
 
 program = main
 
-.PHONY: all
+.PHONY: all build
 .DEFAULT_GOAL := all
 
 all:
-	echo $(extra_sources)
-	mkdir -p $(outdir)
-	$(compiler) $(fcflags) -I $(idir) -o $(outdir)/$(program) $(sources) $(extra_sources)
+	mkdir -p $(builddir)
+	make build && make run
+
+build:
+	$(compiler) $(fcflags) -I $(includedir) -o $(builddir)$(program) $(sources) $(extra_sources)
 
 run:
-	make all && $(outdir)/$(program)
+	$(builddir)$(program) $(time) $(input) $(output) $(readepoch)
 
 clean:
-	rm -f $(outdir)/*.o $(outdir)/*.mod
+	rm -f $(builddir)*.o $(builddir)*.mod
