@@ -47,6 +47,8 @@ C          TSTAR = TSTAR*SQRT(RBAR**3/ZMBAR)
 C       END IF
 
       TSTAR = TSTAR * SQRT(RBAR ** 3 / ZMBAR)
+
+      write(*,*) "TSTAR =", TSTAR
 *
 *       Copy TSTAR to secondary time-scale factor.
       TSCALE = TSTAR

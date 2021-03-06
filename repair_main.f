@@ -1,7 +1,7 @@
       
       program repair_main
 
-*       initialize some parameters
+*       initialize some parameters from command line
       call setup()
 
 *       initialize variables and some constants
@@ -21,6 +21,9 @@
 
 *       reconstruct the data files
       call repair_hrplot()
+
+*       write epochs to a separate file
+      call write_epochs()
 
       call close_files()
 

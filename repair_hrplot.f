@@ -19,7 +19,10 @@
     1 format(I8,F9.1)
 
       NS = N - 2 * NPAIRS
-      write(83, 1) NS, TPHYS
+
+      if (WRITESEV) then
+        write(83, 1) NS, TPHYS
+      end if
 
       IFIRST = 2 * NPAIRS + 1
 
@@ -94,7 +97,7 @@ C                 do not overwrite existing nonzero EPOCH
 
 *           this is where the original bug occurred (KW instead of KW2 in HRDIAG)
             CALL STAR(KW2,M0,M2,TM,TN,TSCLS,LUMS,GB,ZPARS)
-            CALL HRDIAG(M0,AGE,M2,TM,TN,TSCLS,LUMS,GB,ZPARS,RM2,LUM2,KW2,MC,RCC,ME,RE,K2)
+            CALL HRDIAG(M0,AGE2,M2,TM,TN,TSCLS,LUMS,GB,ZPARS,RM2,LUM2,KW2,MC,RCC,ME,RE,K2)
 
 *           convert into appropriate log scales etc.
             PB = log10(abs(PB))
@@ -135,9 +138,6 @@ C             write(*,*) '-----------------------------------------------'
      &          KSTAR(ICM),
      &          RI, ECC, PB, SEMI, M1, M2, ZL1, ZL2, R1, R2, TE1, TE2
     5       format(1X,1P,E13.5,4I8,2I3,I4,6E13.5,6E13.5)
-
-
-            write(100,*) EPOCH(J1), EPOCH(J2)
         else
 
             M1 = BODY(I) * ZMBAR
@@ -168,15 +168,20 @@ C             write(*,*) '-----------------------------------------------'
 *           correct data anyway, but it would not be hard to reproduce
 *           this too
 *           Example: RI is not properly initialized for Singular Stars
-            write(83, 10) TTOT, I, NAME(I), KW, RI, M1, ZL1, R1, TE
-   10       format(1X,1P,E12.5,2I8,I3,5E13.5)
+            if (WRITESEV) then
+              write(83, 10) TTOT, I, NAME(I), KW, RI, M1, ZL1, R1, TE
+   10         format(1X,1P,E12.5,2I8,I3,5E13.5)
+            end if
         end if
    20 end do
 
 
       call flush(82)
-      call flush(83)
       close(82)
-      close(83)
+
+      if (WRITESEV) then
+        call flush(83)
+        close(83)
+      end if
 
       end subroutine repair_hrplot

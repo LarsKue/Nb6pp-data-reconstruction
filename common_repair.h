@@ -3,23 +3,21 @@
 *
 
       include 'common6.h'
-      include 'repair_params.h'
 
       character*10 TSTR
       character*1 READEPOCHSTR
+      character*1 WRITESEVSTR
       integer TREAD
       logical READEPOCH
-      integer UNITS
-      character*400 INPUTPATH
+      logical WRITESEV
+      character*400 BDATPATH
+      character*400 CONFPATH
+      character*400 EPOCHPATH
       character*400 OUTPUTPATH
-      character(len=10) STEMS
-      logical FORMS
-      logical INPUT
 
 *       Parameter Variables
-      COMMON/RPARAMS/ TSTR, READEPOCHSTR, TREAD, READEPOCH, INPUTPATH,
-     &      OUTPUTPATH,
-     &      STEMS(NFILES), UNITS(NFILES), FORMS(NFILES), INPUT(NFILES)
+      COMMON/RPARAMS/ TSTR, READEPOCHSTR, WRITESEVSTR, TREAD, READEPOCH,
+     &      WRITESEV, BDATPATH, CONFPATH, EPOCHPATH, OUTPUTPATH
 
 *       Variables used for reconstruction
       COMMON/REPAIR/ BODYXZMBAR(NMAX), BODYIXZMBAR(NMAX),

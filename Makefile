@@ -11,14 +11,19 @@ builddir = build/
 # output directory
 output = output/
 
-# input directory
-input = input/
+# input directories
+bdat = input/
+conf = input/
+epoch = input/
 
 # include directory
 includedir = include/
 
 # default for readepoch is false
 readepoch = F
+
+# default for writesev is false
+writesev = F
 
 # source files
 sources = $(wildcard *.[fF])
@@ -39,7 +44,7 @@ build:
 	$(compiler) $(fcflags) -I $(includedir) -o $(builddir)$(program) $(sources) $(extra_sources)
 
 run:
-	$(builddir)$(program) $(time) $(input) $(output) $(readepoch)
+	$(builddir)$(program) $(time) $(bdat) $(conf) $(epoch) $(output) $(readepoch) $(writesev)
 
 clean:
 	rm -f $(builddir)*.o $(builddir)*.mod

@@ -89,21 +89,9 @@ C  40   format(13F10.5)
      &         SEMIS(JPAIR), RIS(JPAIR), VIS(JPAIR), KSTAR(J1), KSTAR(J2),
      &         ZN, RP, STEP(J1), NAME(N+JPAIR), ECM(JPAIR), KCMS(JPAIR)
 
-
-        if (READEPOCH) then
-          read(99,*, IOSTAT=read_state) EPOCH(J1), EPOCH(J2)
-
-
-*         TODO: Check if this is necessary
-C           if (read_state .lt. 0) then
-C C             end of file reached
-C             EPOCH(J1) = 0.0
-C             EPOCH(J2) = 0.0
-C           end if
-
-        end if
-
-
       end do
+
+
+      if (READEPOCH) call read_epochs()
 
       end subroutine read_files
