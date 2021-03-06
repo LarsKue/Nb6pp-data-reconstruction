@@ -37,10 +37,10 @@ program = main
 .DEFAULT_GOAL := all
 
 all:
-	mkdir -p $(builddir)
 	make build && make run
 
 build:
+	mkdir -p $(builddir)
 	$(compiler) $(fcflags) -I $(includedir) -o $(builddir)$(program) $(sources) $(extra_sources)
 
 run:
