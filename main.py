@@ -70,7 +70,7 @@ def main(argv: list) -> int:
                 shutil.copy(oepochs, iepochs)
 
         print(f"Reconstructing t={time}")
-        subprocess.run(["make", "run", f"time={time}", f"bdat={bdatpath}/", f"conf={confpath}/", f"epoch={epochpath}", f"output={opath}", f"readepoch={mkbool(read_epoch)}", f"writesev={mkbool(write_sev)}"], stdout=subprocess.DEVNULL)
+        subprocess.run(["make", "run", f"time={time}", f"bdat={bdatpath}/", f"conf={confpath}/", f"epoch={epochpath}/", f"output={opath}/", f"readepoch={mkbool(read_epoch)}", f"writesev={mkbool(write_sev)}"], stdout=subprocess.DEVNULL)
         read_epoch = True
         
         # save the last epochs output file path
