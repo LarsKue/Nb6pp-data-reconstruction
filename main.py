@@ -48,10 +48,13 @@ def main(argv: list) -> int:
     # compile the program
     # subprocess.run(["make", "build"])
 
-    # clear output and epoch files
-    shutil.rmtree(epochpath)
-    shutil.rmtree(opath)
+    # clear output and epoch directories if they contain files
+    if any(epochpath.iterdir()):
+        shutil.rmtree(epochpath)
+    if any(opath.iterdir()):
+        shutil.rmtree(opath)
 
+    # recreate the directories, not sure if this is necessary
     epochpath.mkdir(exists_ok=True)
     opath.mkdir(exists_ok=True)
 
