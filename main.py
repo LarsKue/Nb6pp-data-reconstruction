@@ -55,8 +55,8 @@ def main(argv: list) -> int:
         shutil.rmtree(opath)
 
     # recreate the directories, not sure if this is necessary
-    epochpath.mkdir(exists_ok=True)
-    opath.mkdir(exists_ok=True)
+    epochpath.mkdir(exist_ok=True)
+    opath.mkdir(exist_ok=True)
 
 
     read_epoch = False
