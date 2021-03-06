@@ -46,7 +46,15 @@ def main(argv: list) -> int:
     # opath = Path("output")
 
     # compile the program
-    subprocess.run(["make", "build"])
+    # subprocess.run(["make", "build"])
+
+    # clear output and epoch files
+    shutil.rmtree(epochpath)
+    shutil.rmtree(opath)
+
+    epochpath.mkdir(exists_ok=True)
+    opath.mkdir(exists_ok=True)
+
 
     read_epoch = False
     write_sev = False
