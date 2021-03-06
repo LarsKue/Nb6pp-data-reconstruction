@@ -49,9 +49,9 @@ def main(argv: list) -> int:
     # subprocess.run(["make", "build"])
 
     # clear output and epoch directories if they contain files
-    if epochpath.isdir() and any(epochpath.iterdir()):
+    if epochpath.is_dir() and any(epochpath.iterdir()):
         shutil.rmtree(epochpath)
-    if opath.isdir() and any(opath.iterdir()):
+    if opath.is_dir() and any(opath.iterdir()):
         shutil.rmtree(opath)
 
     # recreate the directories, not sure if this is necessary
