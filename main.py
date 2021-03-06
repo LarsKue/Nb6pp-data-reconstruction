@@ -76,9 +76,8 @@ def main(argv: list) -> int:
             iepochs = epochpath / Path(f"epochs.99_{time}")
 
             if oepochs is not None:
-                # move or copy the output file to input if this is not the first iteration
-                # shutil.move(oepochs, iepochs)
-                shutil.copy(oepochs, iepochs)
+                # move the output file to input if this is not the first iteration
+                shutil.move(oepochs, iepochs)
 
         print(f"Reconstructing t={time}")
         subprocess.run(["make", "run", f"time={time}", f"bdat={bdatpath}/", f"conf={confpath}/", f"epoch={epochpath}/", f"output={opath}/", f"readepoch={mkbool(read_epoch)}", f"writesev={mkbool(write_sev)}"], stdout=subprocess.DEVNULL)
