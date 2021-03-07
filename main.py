@@ -27,16 +27,15 @@ def main(argv: list) -> int:
 
     # albrecht rapid
     times = np.arange(0, 51300 + 1, 10)
-    albrecht = Path("/work/Tit3/albrechtk")
     bdatpath = home / Path("bachelor/albrecht/rapid/bdat.9")
-    confpath = albrecht / Path("conf.3_rapidSNe")
+    confpath = home / Path("bachelor/albrecht/rapid/conf.3")
     epochpath = home / Path("bachelor/albrecht/rapid/epochs")
     opath = home / Path("bachelor/albrecht/rapid/output")
 
     # albrecht delayed
     # times = np.arange(1, 61461 + 1, 10)
     # bdatpath = home / Path("bachelor/albrecht/delayed/bdat.9")
-    # confpath = albrecht / Path("conf.3_delayedSNe")
+    # confpath = home / Path("bachelor/albrecht/delayed/conf.3")
     # epochpath = home / Path("bachelor/albrecht/delayed/epochs")
     # opath = home / Path("bachelor/albrecht/delayed/output")
 
